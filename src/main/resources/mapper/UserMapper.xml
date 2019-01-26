@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cnitr.firstfw.mapper.UserMapper">
+
+    <sql id="Base_Column_List_With_Pwd">
+        id, account, name, birthday,password, sex, email, avatar,
+        phone, roleid,salt,
+        deptid, status,
+        createtime, version
+    </sql>
+
+    <select id="getByAccount" resultType="net.cnitr.firstfw.entity.User">
+        SELECT
+        <include refid="Base_Column_List_With_Pwd "/>
+        FROM
+          user
+        WHERE
+          account =#{accpunt} and status != 3
+    </select>
+
+
+</mapper>
