@@ -1,5 +1,9 @@
 package net.cnitr.firstfw.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,11 +12,15 @@ import java.util.Date;
  * 管理员表
  */
 @Data
-public class User {
+@TableName("user")
+public class User extends Model<User> {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -23,7 +31,7 @@ public class User {
     /**
      * 账号
      */
-    private Integer account;
+    private String account;
 
     /**
      * 密码

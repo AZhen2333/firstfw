@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.cnitr.firstfw.mapper.RoleMapper">
+
+    <sql id="Base_Column_list">
+      id, num, pid, name, deptid, tips, version
+    </sql>
+
+    <select id="selectRoles" resultType="map">
+        SELECT
+          <include refid="Base_Column_list" />
+        FROM
+          role
+        <if test="condition != null">
+            WHERE name LIKE CONCAT("%",#{condition},"%")
+        </if>
+    </select>
+
+    <delete id="deleteRolesById">
+        DELETE FROM relation WHERE roleid = #{roleIf}
+    </delete>
+
+    <select id="roleTreeList" resultType="net.cnitr.firstfw.node.ZTreeNode">
+      SELECT id,pId,name
+          (
+          CASE
+          WHEN (pId = 0 OR pId IS NULL)
+          THEN 'true'
+          ELSE 'fasle'
+          END
+          ) open
+      FROM role
+    </select>
+
+    <select id="roleTreeListByRoleId" resultType="net.cnitr.firstfw.node.ZTreeNode">
+        SELECT
+    </select>
+
+</mapper>
