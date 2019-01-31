@@ -1,6 +1,7 @@
 package net.cnitr.firstfw.shiro;
 
 import net.cnitr.firstfw.entity.User;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 
 /**
  * 用户登录接口
@@ -20,4 +21,14 @@ public interface UserAuthService {
      * @param user 系统用户
      */
     ShiroUser shiroUser(User user);
+
+    /**
+     * 获取shiro的认证信息
+     *
+     * @param shiroUser
+     * @param user
+     * @param realmName
+     * @return
+     */
+    SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName);
 }

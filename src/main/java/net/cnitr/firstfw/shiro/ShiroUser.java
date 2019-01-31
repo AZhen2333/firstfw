@@ -45,5 +45,5 @@ public class ShiroUser implements Serializable {
     /**
      * 角色名称集
      */
-    public List<String> roleName;
+    public List<String> roleNames;
 }

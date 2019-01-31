@@ -10,6 +10,9 @@ import net.cnitr.firstfw.shiro.SpringContextHolder;
 import net.cnitr.firstfw.shiro.UserAuthService;
 import net.cnitr.firstfw.state.ManagerStatus;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
@@ -64,9 +67,18 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         List<String> roleNameList = new ArrayList<String>();
         for (int roleId: roleArray ) {
             roleList.add(roleId);
-            roleNameList.add(ConstantFactory.me().get)
+            roleNameList.add(ConstantFactory.me().getSingleRoleName(roleId));
         }
+        shiroUser.setRoleList(roleList);
+        shiroUser.setRoleNames(roleNameList);
+        return shiroUser;
     }
 
-
+    @Override
+    public SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName) {
+        String credentials = user.getPassword();
+        String source = user.getSalt();
+        ByteSource credentialsSalt = new Md5Hash(source);
+        return new SimpleAuthenticationInfo(shiroUser, credentials, credentialsSalt, realmName);
+    }
 }
